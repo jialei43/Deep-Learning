@@ -12,23 +12,23 @@ import torch
 
 # 1 定义函数，使用torch.arange()和torch.linspace()创建线性张量
 def demo01():
-    # 1.创建0-9线性张量
-    t1 = torch.arange(start=1, end=10, step=1,device=torch.device('mps'))
+    # 1.创建0-9线性张量，step是步长
+    t1 = torch.arange(start=1, end=10, step=2.25,device=torch.device('mps'))
     print(f't1:{t1},shape:{t1.shape},type:{type(t1)},dtype:{t1.dtype},device:{t1.device}')
     print('-'*34)
-    # 2.创建0-1线性张量
-    t2 = torch.linspace(start=1, end=10, steps=1,device=torch.device('mps'))
+    # 2.创建0-1线性张量（等间距），steps是元素个数
+    t2 = torch.linspace(start=1, end=10, steps=5,device=torch.device('mps'))
     print(f't2:{t2},shape:{t2.shape},type:{type(t2)},dtype:{t2.dtype},device:{t1.device}')
 
 # 2.定义函数 创建随机张量
 def demo02():
     # 设置随机种子
     torch.manual_seed(42)
-    # 1.创建随机张量
+    # 1.创建随机张量 『0-1之间』不包含1的随机张量属于均匀分布
     t1 = torch.rand(size=(2,3),device=torch.device('mps'))
     print(f't1:{t1},shape:{t1.shape},type:{type(t1)},dtype:{t1.dtype},device:{t1.device}')
     print('-'*34)
-    # 2.创建随机张量
+    # 2.创建随机张量 均值为0，标准差为1的随机张量属于正态分布
     t2 = torch.randn(size=(2,3),device=torch.device('mps'))
     print(f't2:{t2},shape:{t2.shape},type:{type(t2)},dtype:{t2.dtype},device:{t2.device}')
     print('-'*34)
@@ -41,5 +41,5 @@ def demo02():
 
 
 if __name__ == '__main__':
-    # demo01()
+    demo01()
     demo02()

@@ -42,6 +42,8 @@ def demo01():
     # 使用torch.stack()拼接 沿着那个维护进行拼接，那个维度的值就是拼接的维度/轴的值，其他维度的值不变
     t1 = torch.randint(low=0, high=10, size=(3, 4), device=torch.device('mps'))
     t2 = torch.randint(low=0, high=10, size=(3, 4), device=torch.device('mps'))
+    print(f't1:{t1},shape:{t1.shape}')
+    print(f't2:{t2},shape:{t2.shape}')
     t8 = torch.stack([t1,t2],dim=0)
     print(f't8:{t8},shape:{t8.shape}')
     print('='*68)

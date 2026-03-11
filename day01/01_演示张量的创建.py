@@ -81,7 +81,7 @@ def demo04():
 
 
 if __name__ == '__main__':
-    # demo01()
-    # demo02()
-    # demo03()
+    demo01()
+    demo02()
+    demo03()
     demo04()

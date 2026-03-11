@@ -70,5 +70,5 @@ def demo02():
 
 # 测试
 if __name__ == '__main__':
-    # demo01()
+    demo01()
     demo02()

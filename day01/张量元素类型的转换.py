@@ -5,6 +5,13 @@
         data.to(torch.float32)
         data.type(torch.DoubleTensor)
         data.half/double/float/short/int/long()
+        方法	        PyTorch类型	    NumPy对应	描述
+        .half()	    torch.float16	float16	    半精度浮点数
+        .float()	torch.float32	float32	    单精度浮点数（默认）
+        .double()	torch.float64	float64	    双精度浮点数
+        .short()	torch.int16	    int16	    短整型
+        .int()	    torch.int32	    int32	    整型
+        .long()	    torch.int64	    int64	    长整型
     要掌握：
         data.to(torch.float32)
         data.type(torch.DoubleTensor)

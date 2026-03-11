@@ -4,7 +4,7 @@
     涉及到的API:
         torch.zeros 和 torch.zeros_like 创建0张量
         torch.ones 和 torch.ones_like 创建0张量
-        torch.full 和 torch.full_like 创建0张量
+        torch.full 和 torch.full_like 创建固定数值的张量
 
 用处：
     网络参数初始化，偏置参数初始化
@@ -53,6 +53,6 @@ def demo03():
 
 
 if __name__ == '__main__':
-    # demo01()
-    # demo02()
+    demo01()
+    demo02()
     demo03()
