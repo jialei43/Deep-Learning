@@ -44,6 +44,7 @@ def demo01():
     y_true = torch.tensor([0,1,0,1],dtype=torch.float32)
     # 2.创建 模型的预测分数y_logits
     y_logits = torch.tensor([10,-10,-100,2.5],dtype=torch.float32)
+    print(f'预测分数y_logits：{y_logits}')
     #经过sigmoid，转换为概率，这里才是模型输出的预测值
     y_pred_prob = torch.sigmoid(y_logits)
     print(f'概率分布：{y_pred_prob}')

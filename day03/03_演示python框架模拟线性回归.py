@@ -64,10 +64,12 @@ def train_model(x,y,coef):
     # 1.准备数据集 : numpy数组 -> 张量 -> 数据集对象 -> 数据加载器（分批进行加载）
     # 1.1 创建数据集对象
     dataset = TensorDataset(x,y)
+    print(f'数据集对象dataset：{dataset},length:{len(dataset)}')
     # 1.2 创建数据加载器
     # 参数1：数据集对象; 参数2：批次大小，一般 64，32; 参数3：是否打乱数据，训练数据集时打乱，测试时不打乱；
     # 参数4：是否删除最后一个数量不够的批次，一般是False
     dataloader = DataLoader(dataset,batch_size=16,shuffle=True,drop_last=True)
+    print(f'数据集对象dataloader：{dataloader},length:{len(dataloader)}')
     # 2.构建模型：nn.linear()
     # in_features = 1：输入特征的数量
     # out_features = 1：输出特征的数量
