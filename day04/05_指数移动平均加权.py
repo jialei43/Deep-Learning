@@ -13,7 +13,7 @@ import torch
 import matplotlib.pyplot as plt
 
 import matplotlib
-matplotlib.use('TkAgg')
+# matplotlib.use('TkAgg')
 
 # 设置中文字体
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS', 'PingFang SC', 'Heiti SC']
@@ -38,7 +38,7 @@ def demo01():
 # 2. 指数加权平均温度
 def demo02(beta=0.9):
     # 固定随机数种子，确保每次运行得到相同的随机温度数据
-    torch.manual_seed(0)
+    torch.manual_seed(24)
     # 产生30天的随机温度数据，通过乘以10放大温度范围
     temperature = torch.randn(size=[ELEMENT_NUMBER, ]) * 10
     print(temperature)
