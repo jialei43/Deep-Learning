@@ -1,3 +1,30 @@
+"""
+1、创建词汇表
+    1.1 逐行读取文件，将读到的内容使用jieba.lcut()进行词切分
+    1.2 将切分的词进行全量存储，再对词进行去重再进行存储（ID 到词列表），存储词到id的映射，存储词量表对应的索引（语料库 ID 序列），计算词量表大小
+    1.3 返回词到 ID 映射、ID 到词列表、词汇表大小和语料库 ID 序列
+2、构建数据集
+    2.1 继承自 torch.utils.data.Dataset，用于加载歌词序列数据并生成训练样本 实现init,len,getitem方法
+        init方法：保存（1、创建词汇表）返回的词料库ID序列，保存出传入的样本词量大小，根据词料库//样本词汇量大小=样本数量
+        len方法：放回样本数量
+        getitem方法：根据传入的词索引id，再根据样本词汇量大小，返回特征样本和标签样本，用于模型训练和预测
+
+3、构建模型
+    3.1 继承nn.model,实现init和forward方法
+    3.2 init 方法 构建网络层
+        词嵌入层 nn.enbedding(vocal_size(词料表大小),enbedding_dim(词向量维度)))
+        RNN层   nn.rnn(input_size(enbedding_di),hidden_size,num_layers=1,batch_frist=True)
+
+
+
+
+
+    2.2 init实现
+        网络层构建：
+            词嵌入层 nn.enbedding(vocal_size(此列表大小),seq_len(每个文本的词汇量大小))
+            RNN层   nn.RNN
+"""
+
 import os
 
 import jieba
@@ -49,13 +76,13 @@ def create_vocab():
                     # 将词语添加到唯一词语列表
                     unique_words.append(word)
 
-    # ID 到词的映射：直接使用唯一词语列表，索引即为 ID
+    # ID 到词的映射：直接使用唯一词语列表，索引即为 ID，去重ids
     id2word = unique_words
-    # 词到 ID 的映射：使用字典推导式，enumerate 生成索引作为 ID
+    # 词到 ID 的映射：使用字典推导式，enumerate 生成索引作为 ID 去重的生成词到 ID 的映射
     word2id = {unique_word: i for i, unique_word in enumerate(unique_words)}
-    # 计算词汇表大小（唯一词语的数量）
+    # 计算词汇表大小（唯一词语的数量）去重ids大小
     vocab_size = len(unique_words)
-    # 初始化语料库 ID 列表（用于存储转换后的 ID 序列）
+    # 初始化语料库 ID 列表（用于存储转换后的 ID 序列）存储原始歌词的 ID 序列
     corpus_id = []
 
     # 遍历所有歌词的分词结果，转换为 ID 序列
@@ -125,6 +152,10 @@ class WordModel(nn.Module):
         # 2.1 词嵌入层 生成向量表示
         self.embedding = nn.Embedding(vocab_size, 128)
         # 2.2 RNN层
+        # 即使你设置了
+        # batch_first = True，RNN返回的那个，h_n(最终隐藏状态)的形状依然是：[num_layers, batch, hidden_size]
+        # 为什么？ 因为隐藏状态 $h$ 是跨越整个序列的“记忆汇总”，它不属于任何一个特定的时间步，所以
+        # PyTorch官方坚持保持它的，Batch维度在中间（或者说它不受batch_first参数的影响）
         self.rnn = nn.RNN(128, 256, num_layers=1, batch_first=True)
         # 2.3 全连接层
         self.linear1 = nn.Linear(256, vocab_size)
